@@ -5,7 +5,7 @@ const router = express.Router();
 //To use req.body, we need to use express.json() middleware in index.js
 router.post('/', (req, res) => {
     console.log(req.body);
-    const user = User(req.body);
+    const user = User(req.body);//Using mongoose Model to create a new user
     user.save();
     res.send(req.body);
 });
