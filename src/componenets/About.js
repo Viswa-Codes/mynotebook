@@ -1,15 +1,15 @@
-import React from 'react'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
-  
+import React,{useContext,useEffect} from 'react'
+import noteContext from '../context/notes/noteContext'
+
 export const About = () => {
+    const a = useContext(noteContext);
+    useEffect(() => {
+        a.update();
+        // eslint-disable-next-line
+    }, []);
     return (
         <div>
-            This is About
+            This is About {a.state.name} and class is {a.state.class}
         </div>
     )
 }
