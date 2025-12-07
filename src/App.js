@@ -10,10 +10,12 @@ function App() {
     <>
     <NoteState>
       <Navbar />
+      <div className="container">
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
       </Routes>
+      </div>
     </NoteState>
     </>
   );
