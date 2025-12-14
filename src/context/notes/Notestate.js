@@ -17,7 +17,6 @@ const NoteState = (props)=>{
         }
         });
         const json = await response.json()
-        console.log(json)
         setNotes(json)
     }
 
@@ -34,13 +33,7 @@ const NoteState = (props)=>{
             body:JSON.stringify({title, description, tag})
         });
         // Handle response and validation errors
-        const json = await response.json();
-        if (!response.ok) {
-            console.error('Failed to add note', response.status, json);
-            return; // don't update state on bad request
-        }
-        console.log("Adding a new note");
-        const note = json;
+        const note = await response.json();
         setNotes(notes.concat(note));
       }
 
@@ -55,9 +48,6 @@ const NoteState = (props)=>{
       }
     });
     const json = response.json();
-    console.log(json)
-
-    console.log("Deleting the note with id" + id);
     const newNotes = notes.filter((note) => { return note._id !== id })
     setNotes(newNotes)
   }
@@ -75,7 +65,6 @@ const NoteState = (props)=>{
                 body: JSON.stringify({title, description, tag})
                 });
             const json = await response.json();
-            console.log(json);
 
              let newNotes = JSON.parse(JSON.stringify(notes))
 
