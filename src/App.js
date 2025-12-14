@@ -5,6 +5,8 @@ import { Home } from './componenets/Home';
 import { About } from './componenets/About';
 import NoteState from './context/notes/Notestate';
 import Alert from './componenets/Alert';
+import Signup from './componenets/Signup';
+import Login from './componenets/Login';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/about" element={<About />} />
+        <Route exact path="/signup" element={<Signup />} />
+        <Route exact path="/login" element={<Login />} />
       </Routes>
       </div>
     </NoteState>
