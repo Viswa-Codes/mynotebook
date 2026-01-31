@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# myNotebook
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple full-stack notebook app (React + Express + MongoDB) to create, read, update and delete personal notes. This README explains how to install, run and test the project locally.
 
-## Available Scripts
+**Tech stack:** React, Express, MongoDB, Mongoose, JWT authentication
 
-In the project directory, you can run:
+**Key ports:** frontend: 3000 (React), backend: 5000 (Express)
 
-### `npm start`
+**Quick start**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Install dependencies in the root (frontend) and backend:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm install
+cd backend
+npm install
+cd ..
+```
 
-### `npm test`
+2. Start both frontend and backend concurrently from the project root:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm run both
+```
 
-### `npm run build`
+Alternatively run each part individually:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Frontend only: `npm start` (from project root)
+- Backend only: `cd backend && nodemon index.js` (or `node index.js`)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Prerequisites
+- Node.js (>=14)
+- MongoDB running locally (default connection: `mongodb://localhost:27017/mynotebook`)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Backend / API
+- Base URL: `http://localhost:5000/api`
 
-### `npm run eject`
+Authentication
+- This app uses JWT. On success, login/register endpoints return an `authtoken`.
+- Protected routes require the header `auth-token: <token>`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Available endpoints
+- `POST /api/auth/createuser` — Register a new user. Body: `{ name, email, password }`.
+- `POST /api/auth/login` — Login. Body: `{ email, password }`.
+- `POST /api/auth/getuser` — Get logged-in user details. Protected (send `auth-token` header).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `GET /api/notes/fetchallnotes` — Get all notes for the logged-in user. Protected.
+- `POST /api/notes/addnote` — Add a new note. Protected. Body: `{ title, description, tag? }`.
+- `PUT /api/notes/updatenote/:id` — Update note by id. Protected.
+- `DELETE /api/notes/deletenote/:id` — Delete note by id. Protected.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Folder structure (high level)
+- `backend/` — Express server, routes, models, MongoDB connection
+- `src/` — React app (components, context)
+- `public/` — Static frontend assets
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Notes and configuration
+- MongoDB connection string is set in `backend/db.js`. Change it if you use a remote DB.
+- JWT secret is `JWTSecretKey` inside backend files; replace with a secure secret for production.
 
-## Learn More
+Testing the API (example curl)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Register:
+```bash
+curl -X POST http://localhost:5000/api/auth/createuser -H "Content-Type: application/json" -d '{"name":"Alice","email":"a@a.com","password":"secret"}'
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Login:
+```bash
+curl -X POST http://localhost:5000/api/auth/login -H "Content-Type: application/json" -d '{"email":"a@a.com","password":"secret"}'
+```
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Next steps
+- Replace hard-coded secrets and connection strings with environment variables.
+- Add tests and input validation on the frontend where needed.
