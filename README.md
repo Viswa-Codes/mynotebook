@@ -1,75 +1,91 @@
-# myNotebook
+# 📝 MyNotebook - Scalable Knowledge Management System
 
-A simple full-stack notebook app (React + Express + MongoDB) to create, read, update and delete personal notes. This README explains how to install, run and test the project locally.
+A professional personal notebook application built with the **MERN** stack. This project has been engineered to transition from a basic CRUD prototype to a high-performance, production-ready system.
 
-**Tech stack:** React, Express, MongoDB, Mongoose, JWT authentication
+[![Release](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Viswa-Codes/mynotebook/releases)
+[![Tech Stack](https://img.shields.io/badge/stack-MERN-green.svg)](#-tech-stack)
 
-**Key ports:** frontend: 3000 (React), backend: 5000 (Express)
+---
 
-**Quick start**
+## 🚀 Evolution: From v1.0 to v2.0 (Architectural Foundation)
 
-1. Install dependencies in the root (frontend) and backend:
+While v1.0 focused on basic functionality, **v2.0 (The Professional Refactor)** builds the structural foundation required for enterprise-level scaling.
+
+### Key Architectural Improvements:
+- **TypeScript Migration:** Entire backend refactored for strict type safety to eliminate runtime exceptions.
+- **Layered Architecture:** Implemented the **Controller-Service-Repository** pattern. This decouples business logic from data access, allowing for independent scaling of the database layer.
+- **Robust Validation:** Integrated **Zod** schemas to ensure data integrity before it reaches the database.
+- **Centralized Error Handling:** Standardized API responses using a global error-handling middleware.
+
+---
+
+## 🏗️ System Architecture
+
+The backend is designed using a modular "Clean Architecture" approach:
+
+- **Routes:** API endpoint definitions.
+- **Controllers:** Handle HTTP transport logic (Request parsing/Response formatting).
+- **Services:** The "Brain" of the app. Contains business logic and domain rules.
+- **Repositories:** The Data Access Layer. Isolated Mongoose queries for better testability.
+- **Middlewares:** Authentication guards (JWT) and Zod validation layers.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js, Context API, CSS3  
+- **Backend:** Node.js, Express.js (TypeScript)  
+- **Database:** MongoDB (Mongoose)  
+- **Security:** JWT (JSON Web Tokens), Bcrypt.js  
+- **Validation:** Zod  
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the repository
 
 ```bash
+git clone https://github.com/Viswa-Codes/mynotebook.git
+```
+### 2. Backend Setup
+
+```bash
+cd server
 npm install
-cd backend
+# Ensure you create a .env file in the server root with:
+# MONGO_URI=your_mongodb_uri
+# JWT_SECRET=your_jwt_secret
+npm run dev
+```
+
+### 3. Frontend Setup
+
+```bash
+cd client
 npm install
-cd ..
+npm start
 ```
 
-2. Start both frontend and backend concurrently from the project root:
+### 🛡️ API Features (v2.0)
+| Feature          | Implementation                                         |
+| ---------------- | ------------------------------------------------------ |
+| Authentication   | Secure JWT-based stateless authentication.             |
+| Input Integrity  | Strict schema validation using Zod.                    |
+| Error Management | Custom AppError class for standardized API errors.     |
+| Clean Code       | 100% Type-safe codebase with modular folder structure. |
 
-```bash
-npm run both
-```
 
-Alternatively run each part individually:
+🛤️ Roadmap: Moving to Phase B (Scalability & Performance)
 
-- Frontend only: `npm start` (from project root)
-- Backend only: `cd backend && nodemon index.js` (or `node index.js`)
+The next evolution of this project focuses on optimizing for high-traffic scenarios:
 
-Prerequisites
-- Node.js (>=14)
-- MongoDB running locally (default connection: `mongodb://localhost:27017/mynotebook`)
+    [ ] v3.0 (Database Performance): Implementing Compound Indexing in MongoDB to optimize query execution plans from O(N) to O(logN).
 
-Backend / API
-- Base URL: `http://localhost:5000/api`
+    [ ] v3.1 (Caching Layer): Integrating Redis to implement the Cache-Aside pattern for frequently accessed notes.
 
-Authentication
-- This app uses JWT. On success, login/register endpoints return an `authtoken`.
-- Protected routes require the header `auth-token: <token>`.
+    [ ] v3.2 (Data Handling): Implementing Cursor-based Pagination and Search indexing for large datasets.
 
-Available endpoints
-- `POST /api/auth/createuser` — Register a new user. Body: `{ name, email, password }`.
-- `POST /api/auth/login` — Login. Body: `{ email, password }`.
-- `POST /api/auth/getuser` — Get logged-in user details. Protected (send `auth-token` header).
+    [ ] v4.0 (Cloud Infrastructure): Media storage via AWS S3/Cloudinary and distributed logging.
 
-- `GET /api/notes/fetchallnotes` — Get all notes for the logged-in user. Protected.
-- `POST /api/notes/addnote` — Add a new note. Protected. Body: `{ title, description, tag? }`.
-- `PUT /api/notes/updatenote/:id` — Update note by id. Protected.
-- `DELETE /api/notes/deletenote/:id` — Delete note by id. Protected.
 
-Folder structure (high level)
-- `backend/` — Express server, routes, models, MongoDB connection
-- `src/` — React app (components, context)
-- `public/` — Static frontend assets
-
-Notes and configuration
-- MongoDB connection string is set in `backend/db.js`. Change it if you use a remote DB.
-- JWT secret is `JWTSecretKey` inside backend files; replace with a secure secret for production.
-
-Testing the API (example curl)
-
-Register:
-```bash
-curl -X POST http://localhost:5000/api/auth/createuser -H "Content-Type: application/json" -d '{"name":"Alice","email":"a@a.com","password":"secret"}'
-```
-
-Login:
-```bash
-curl -X POST http://localhost:5000/api/auth/login -H "Content-Type: application/json" -d '{"email":"a@a.com","password":"secret"}'
-```
-
-Next steps
-- Replace hard-coded secrets and connection strings with environment variables.
-- Add tests and input validation on the frontend where needed.
