@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const mongoURI = "mongodb://localhost:27017/mynotebook";
+const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/mynotebook";
 
 const connectToMongo = async () => {
   try {
@@ -8,7 +8,8 @@ const connectToMongo = async () => {
     console.log("Connected to Mongo Successfully");
   } catch (error) {
     console.error("Error connecting to Mongo:", error);
+    process.exit(1);
   }
 };
 
-module.exports = connectToMongo;
+export default connectToMongo;
