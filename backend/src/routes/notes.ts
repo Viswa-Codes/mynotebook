@@ -1,5 +1,5 @@
 import express from 'express';
-import fetchuser from '../middleware/fetchuser';
+import fetchuser from '../middlewares/fetchuser';
 import * as NoteController from '../controllers/note.controller';
 
 const router = express.Router();

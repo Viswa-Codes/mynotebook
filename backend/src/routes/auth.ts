@@ -1,6 +1,6 @@
 import express from 'express';
 import * as AuthController from '../controllers/auth.controller';
-import fetchuser from '../middleware/fetchuser';
+import fetchuser from '../middlewares/fetchuser';
 
 const router = express.Router();
 
