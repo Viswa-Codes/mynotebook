@@ -4,7 +4,9 @@ import cors from 'cors';
 import { errorHandler } from './middlewares/errorHandler';
 import authRoutes from './routes/auth';
 import notesRoutes from './routes/notes';
+import dotenv from 'dotenv';
 
+dotenv.config();// Load environment variables from .env file
 connectToMongo();
 
 const app = express(); //Create an Express application instance
