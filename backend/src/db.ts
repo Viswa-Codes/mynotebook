@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 
-const mongoURI = process.env.MONGO_URI || "mongodb://localhost:27017/mynotebook";
+const mongoURI = "mongodb+srv://admin:NeoTOp8kQFCOCILz@cluster0.zd0tboz.mongodb.net/mynotebook?appName=Cluster0" ;
 
 const connectToMongo = async () => {
   try {
+    console.log(mongoURI);
     await mongoose.connect(mongoURI);
     console.log("Connected to Mongo Successfully");
   } catch (error) {
